@@ -2,12 +2,12 @@ import praw
 import csv
 
 # Reddit API credentials
-reddit = praw.Reddit(client_id='YOUR_CLIENT_ID', 
-                     client_secret='YOUR_CLIENT_SECRET', 
-                     user_agent='YOUR_USER_AGENT')
+reddit = praw.Reddit(client_id='C9m2y3NRDX0fjzW9vGnLKw', 
+                     client_secret='TZcYQwlZ1NngXLB_NmSeHNJWyV1zkw', 
+                     user_agent='uni_project by /u/mars_million')
 
 # Specify the post ID
-post_id = 'POST_ID'
+post_id = '12herjl'
 
 # Get the post by its ID
 post = reddit.submission(id=post_id)

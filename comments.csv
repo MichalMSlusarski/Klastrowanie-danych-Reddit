@@ -1,0 +1,58 @@
+comment,upvotes
+I have no clue. Who is the enemy? how did you lose? What do the popups indicate?,13
+"Kind of but i dont really have an idea to what the point of the game is, when you lost, i didnt see why, maybe i am dumb but you could me more precise",3
+I was having a lot of trouble on the icons above the bottom 3 left pieces.,2
+"Not very readable.  I understand what everything means, but none of it was intuitive. 
+
+You have tiles remaining, but nothing to suggest that's what the number represents. Perhaps a stack of tile icons,  or better yet a maskable stacked tile icon. 
+
+You have player score, but the icon reads as lives, and enemy score reads as deaths. 
+
+The tiles on the bottom left appear to get replaced, but they don't seem to be part of a scroll list and the tile count UI is too far away on the screen.",2
+"So, I'm working on this pet project, obviously inspired by Dorfromantik. Trying to make it a two-player game, with minimal text for easier localization. I want to get as many ""no context"" reactions, to see what I should improve. 
+
+The rules and icons explained:
+>!
+The game is played against the enemy AI, marked with a skull symbol 💀. The popup above the tiles in the left down corner tells you for what adjacent tiles you earn points. The number floating above the tile as you move it around the map helps you calculate how many points you gain placing the tile there. You lose if you or the enemy run out of tiles (upper left corner) and you have less points than the enemy (the upper bar).
+!<",1
+Mechanics are straightforward and very easy to understand. I think you just need to give 2-3 notes about the rules / consequences of placing tiles,1
+"If I were you I'd add a fast-changing colour effect to all possible slots the enemy can attain while he is thinking
+
+The whole game feels quite bland. Maybe use Midjourney or Stable Diffusion to figure out how you can make it more interesting.",1
+"Noted! Now I know I have to explain it better. The game is played against the enemy AI, marked with a skull symbol. The popup above the tiles in the left down corner tells you for what adjacent tiles you earn points. The number floating above the tile as you move it around the map helps you calculate how many points you gain placing the tile there. You lose if you or the enemy run out of tiles (upper left corner) and you have less points than the enemy (the upper bar). Hope this explains it well enough. Anyway, thank you for the feedback! - that's exactly what I was asking for!",1
+"Don't ever think you're dumb! Always blame the designer - in this case me. Yeah, as I'm reading from the comments some things that are obvious for me aren't for the possible players. That's exactly why I'm asking for as much feedback as possible. Thanks for help!",1
+Thanks! I'm starting to see how they might be confusing if you don't know the tiles that aren't currently displayed. I'll try coming up with some better way to explain what they mean,1
+Thanks for the feedback and helpful suggestions! I'll think about visualizing the stack as if it were a board game or maybe like a blackjack table(?). I'll also consider using better icons for the player and the enemy. Thanks again!,2
+"Big fan of Dorfromantik here. I could figure out most of that by watching the video a few times, but I have no idea how the scores are calculated per tile, so would be completely reliant on using the popup. Checking the score for every tile in every location each move does not seem like it would be fun.
+
+On the design though, it looks like terrain types are strongly colour coded, but you make them greyscale which loses the info. Maybe consider making them half-bright instead of greyscale?
+
+&#x200B;
+
+edit, oh i get it now, the little icons do not match the tile type, they match whatever adjacent type adds or loses points for each tile... I feel like this would be less confusing with the Dorfromantik system of multi-type tiles, but then you've gotta worry about rotation and all that.
+
+edit2: wait, no... NOW I get it... the icons ARE the tile type, the mouseover popup icons are the score indicators, and I'm guessing those are fixed per tile type? eg. mountains always give +1 for forests and -1 for other mountains... I'd say the biggest problem was just the video was too quick, my first impression was wrong because it went by too quick to take everything in and I had to pause it in a few places to figure things out. That would not be a problem if I were actually playing it. So all in all you've done a pretty good job with the UI in my opinion.
+
+I would be interested to play this game.
+
+edit3: there is a hex-tile game called ""Before we Leave"" that has a vaguely similar adjacency system but it's not 2 player a turn based strat, more of a sim city / caesar type thing, where placing a well gives a production bonus to any adjacent farms, and ore smelters effect pollution / happiness in a 2 tile radius, kind of thing. You might want to check it out.",2
+"Happy to hear that! I'll definitely add some more information in a (skippable) tutorial, and some kind of ""info panel"" will be always available in-game. Thanks for the feedback and a positive note!",1
+"That should be easy to implement so I'll think about that, thanks!
+
+Hard to hear the game looks bland. I'm no artist myself so went for a minimalist look. But I see it isn't working out. Idk about AI art, especially that the game's 3D. Might gonna have to commission an artist along the way",1
+"The scoreboard at the top doesn't look like a scoreboard. I think the biggest problem with visual clarity comes from placement looks the same and doesn't look like someone else's piece. In most board games you can see what the other player has done because your pieces look different. Even now you have told me I can still barely figure what is going on. 
+
+&#x200B;
+
+btw I am actually working on a dorfromantik inspired game too lol",3
+"Thanks a lot! I'm starting to see that most people initially get confused with how the little + icons work. I'll have to think about how to improve their clarity. Regarding the color coding, these colors actually don't have any meaning. I tried to make this game work in grayscale so that it can be played by my friends, some of whom are color-blind. So the white icons are purely a stylistic choice. Thanks again for the feedback! I'll notify you when I make a proper build of the game!",1
+"Not sure I agree it is bland, it looks okay to me. The main issue I see is the UI doesn't feel like it matches the tiles, kind of like 2 different styles.",2
+"Didn't really want to change the look of the pieces, because you and the enemy draw from the same set of tiles. I think I was inspired by dominoes and how each player's tile looks the same. It seems I failed to convey that idea. I'll think about a shader to visually separate the tiles somehow.
+
++ I think Dorfromantik can be treated as a genre at this point",2
+++ I've seen some of your gameplay videos! Impressive work!,1
+"With the UI, I was going for a Duolingo-like style. I thought it would look okay with these tiles. With the 3D, I'm aiming for a cute and very minimalist style, something I could easily turn into a real-life board game tile (that's kind of my ultimate goal here). I'm definitely going to ask more people for feedback on the style so that I can identify everything that needs improvement. Thanks again for your time!",1
+"you could make the placement visually obviously different. You can also have the enemy flick the tile into a couple of places before choosing in red or something. 
+
+Dominos is much simple design which has really strong visual clarity making sharing the board easier. You also can't see the enemy has a stack of tiles. Do you just have x number of tiles and game over? If so I think your number is way to low, part of the joy is placing lots of tiles.",1
+"thanks, but I have a long way to go, and progress is slow cause of work.",2
