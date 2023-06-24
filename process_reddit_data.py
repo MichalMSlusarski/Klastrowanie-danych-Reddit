@@ -4,7 +4,6 @@ import spacy
 import textstat
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-#from nltk.corpus import stopwords
 
 with open('stopwords_en.txt', 'r', encoding='utf-8') as f: #stopwords z nltk, bez koniecznosci pobierania modułu
     STOP_WORDS = f.read().splitlines()
