@@ -46,74 +46,48 @@ def clean_text(text: str) -> str:
     return text_cleaned
 
 def clean_all():
-
     df['comment'] = df['comment'].apply(clean_text)
     print(df.head)
     return df
 
-def calculate_similarity_matrix(df=df, column_name='comment'):
+def df_to_list(df=df, content_col='comment'):
+    comments = []
+    ids = []
+
+    for index, row in df.iterrows():
+        comment = row[content_col]
+        comments.append(comment)
+        ids.append(index)
+
+    return [comments, ids]
+
+def generate_similarity_matrix(document_list):
+    global vectorizer
+
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform(document_list)
+    cosine_similarities = cosine_similarity(tfidf_matrix)
+
+    return cosine_similarities
+
+def perform_document_clustering(df, column_name, num_clusters):
     vectorizer = TfidfVectorizer()
 
     tfidf_matrix = vectorizer.fit_transform(df[column_name])
-
     similarity_matrix = cosine_similarity(tfidf_matrix)
+    kmeans = KMeans(n_clusters=num_clusters, random_state=42)
+    cluster_labels = kmeans.fit_predict(similarity_matrix)
+    df['cluster'] = cluster_labels
 
-    return similarity_matrix
+    return df
 
-def generate_similarity_rank(cosine_similarities, labels, min_strength):
-    data = pd.DataFrame()
-    # Print the cosine similarity matrix
-    for i in tqdm(range(len(cosine_similarities))):
-        for j in range(i + 1, len(cosine_similarities)):
-            # print(f"Similarity between list {i} and list {j}: {cosine_similarities[i][j]}")
-            tmp = pd.DataFrame()
-            if cosine_similarities[i][j] > min_strength and labels[i] != labels[j]:
-                tmp['content_1'] = [labels[i]]
-                tmp['content_2'] = [labels[j]]
-                tmp['similarity'] = [cosine_similarities[i][j]]
-                data = data.append(tmp)
-
-    data = data.sort_values(by=['similarity'], ascending = False)
-
-    return data
-
-def cluster_data(document_list, epsilon, min):
-    # Fit and transform the vectorizer on the document list
-    vectorized_docs = vectorizer.fit_transform(document_list)
-
-    # Apply dimensionality reduction to reduce the vectorized documents to two or three dimensions
-    pca = PCA(n_components=2)  # or n_components=3 for 3D visualization
-    reduced_docs = pca.fit_transform(vectorized_docs.toarray())
-
-    # Perform K-means clustering
-    kmeans = KMeans(n_clusters=min)
-    cluster_labels = kmeans.fit_predict(reduced_docs)
-
-    #dbscan = DBSCAN(eps=epsilon, min_samples=min)  # Adjust the values of eps and min_samples as needed
-    #cluster_labels = dbscan.fit_predict(reduced_docs)
-    #cluster_labels = np.unique(cluster_labels)
-
-    cluster_counts = {}
-    for label in set(cluster_labels):
-        cluster_counts[label] = sum(cluster_labels == label)
-
-    for label, count in cluster_counts.items():
-        print(f"Cluster {label}: {count} documents")
-
-    return [reduced_docs, cluster_labels]
-
-def draw_viz(reduced_docs, cluster_labels, title):
-    # Visualize the clustered data
-    plt.style.use('dark_background')
-
-    fig, ax = plt.subplots(figsize=(12, 12))
-    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
-
-    plt.title(title)
-    plt.xlabel('Dimension 1')
-    plt.ylabel('Dimension 2')
-    plt.colorbar(scatter)
-
+def visualize_clusters(df):
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(df.index, df.index, c=df['cluster'], cmap='viridis')
+    plt.title('Document Clustering')
+    plt.xlabel('Document Index')
+    plt.ylabel('Document Index')
+    plt.legend(handles=scatter.legend_elements()[0], labels=range(3), title='Cluster')
     plt.show()
 
 #Top keywords for each cluster
@@ -153,5 +127,7 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
     #keyword_data.clear()
 
 
-clean_all()
+clean_df = clean_all()
+x = perform_document_clustering(clean_df, 'comment', 3)
+visualize_clusters(x)
 
