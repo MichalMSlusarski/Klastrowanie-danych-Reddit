@@ -61,13 +61,7 @@ def df_to_list(df=df, content_col='comment'):
 
     return [comments, ids]
 
-def generate_similarity_matrix(document_list):
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(document_list)
-    cosine_similarities = cosine_similarity(tfidf_matrix)
-
-    return cosine_similarities
-
+'''K-means do wyszukania podobieństwa między wektorami uzyskanymi przez tfidf, używa kwadratu dystansu euklidesowego. PCA pozawla ograniczyć wielowymiarowość wektorów tekstowych'''
 def cluster_data(document_list, epsilon, min):
 
     vectorizer = TfidfVectorizer()
@@ -89,7 +83,7 @@ def cluster_data(document_list, epsilon, min):
     return [reduced_docs, cluster_labels]
 
 def draw_viz(reduced_docs, cluster_labels, title='Reddit comments cluster:'):
-    # Visualize the clustered data
+
     plt.style.use('dark_background')
 
     fig, ax = plt.subplots(figsize=(12, 12))
@@ -140,8 +134,6 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 
 
 clean_df = clean_all()
-# x = perform_document_clustering(clean_df, 'comment', 3)
-# visualize_clusters(x)
 doc_list = df_to_list(clean_df, 'comment')
 cos = cluster_data(doc_list[0], 3, 3)
 draw_viz(cos[0], cos[1], )
