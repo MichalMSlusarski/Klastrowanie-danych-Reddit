@@ -62,32 +62,44 @@ def df_to_list(df=df, content_col='comment'):
     return [comments, ids]
 
 def generate_similarity_matrix(document_list):
-    global vectorizer
-
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(document_list)
     cosine_similarities = cosine_similarity(tfidf_matrix)
 
     return cosine_similarities
 
-def perform_document_clustering(df, column_name, num_clusters):
+def cluster_data(document_list, epsilon, min):
+
     vectorizer = TfidfVectorizer()
+    vectorized_docs = vectorizer.fit_transform(document_list)
 
-    tfidf_matrix = vectorizer.fit_transform(df[column_name])
-    similarity_matrix = cosine_similarity(tfidf_matrix)
-    kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-    cluster_labels = kmeans.fit_predict(similarity_matrix)
-    df['cluster'] = cluster_labels
+    pca = PCA(n_components=2)  # or n_components=3 for 3D visualization
+    reduced_docs = pca.fit_transform(vectorized_docs.toarray())
 
-    return df
+    kmeans = KMeans(n_clusters=min)
+    cluster_labels = kmeans.fit_predict(reduced_docs)
 
-def visualize_clusters(df):
-    plt.figure(figsize=(10, 8))
-    scatter = plt.scatter(df.index, df.index, c=df['cluster'], cmap='viridis')
-    plt.title('Document Clustering')
-    plt.xlabel('Document Index')
-    plt.ylabel('Document Index')
-    plt.legend(handles=scatter.legend_elements()[0], labels=range(3), title='Cluster')
+    cluster_counts = {}
+    for label in set(cluster_labels):
+        cluster_counts[label] = sum(cluster_labels == label)
+
+    for label, count in cluster_counts.items():
+        print(f"Cluster {label}: {count} documents")
+
+    return [reduced_docs, cluster_labels]
+
+def draw_viz(reduced_docs, cluster_labels, title='Reddit comments cluster:'):
+    # Visualize the clustered data
+    plt.style.use('dark_background')
+
+    fig, ax = plt.subplots(figsize=(12, 12))
+    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
+
+    plt.title(title)
+    plt.xlabel('Dimension 1')
+    plt.ylabel('Dimension 2')
+    plt.colorbar(scatter)
+
     plt.show()
 
 #Top keywords for each cluster
@@ -128,6 +140,10 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 
 
 clean_df = clean_all()
-x = perform_document_clustering(clean_df, 'comment', 3)
-visualize_clusters(x)
+# x = perform_document_clustering(clean_df, 'comment', 3)
+# visualize_clusters(x)
+doc_list = df_to_list(clean_df, 'comment')
+cos = cluster_data(doc_list[0], 3, 3)
+draw_viz(cos[0], cos[1], )
+
 
