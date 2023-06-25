@@ -67,7 +67,7 @@ def cluster_data(document_list, epsilon, min):
     vectorizer = TfidfVectorizer()
     vectorized_docs = vectorizer.fit_transform(document_list)
 
-    pca = PCA(n_components=2)  # or n_components=3 for 3D visualization
+    pca = PCA(n_components=2)
     reduced_docs = pca.fit_transform(vectorized_docs.toarray())
 
     kmeans = KMeans(n_clusters=min)
