@@ -130,7 +130,7 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
         print()
     df = pd.DataFrame(keyword_data, columns=['keyword', 'count', 'of_all'])
     df.to_csv(f'keywords_from_6_clusters.csv', index=False)
-    #keyword_data.clear()
+    keyword_data.clear()
 
 
 clean_df = clean_all()
