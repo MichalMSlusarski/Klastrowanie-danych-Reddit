@@ -5,9 +5,7 @@ import spacy
 import string
 import textstat
 import matplotlib.pyplot as plt
-from tqdm import tqdm
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.cluster import DBSCAN
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -62,7 +60,7 @@ def df_to_list(df=df, content_col='comment'):
     return [comments, ids]
 
 '''K-means do wyszukania podobieństwa między wektorami uzyskanymi przez tfidf, używa kwadratu dystansu euklidesowego. PCA pozawla ograniczyć wielowymiarowość wektorów tekstowych'''
-def cluster_data(document_list, epsilon, min):
+def vectorize_comments(document_list):
 
     vectorizer = TfidfVectorizer()
     vectorized_docs = vectorizer.fit_transform(document_list)
@@ -70,8 +68,13 @@ def cluster_data(document_list, epsilon, min):
     pca = PCA(n_components=2)
     reduced_docs = pca.fit_transform(vectorized_docs.toarray())
 
-    kmeans = KMeans(n_clusters=min)
-    cluster_labels = kmeans.fit_predict(reduced_docs)
+    return reduced_docs
+
+def DBSCAN_clustering(reduced_docs, epsilon, min):
+
+    dbscan = DBSCAN(eps=epsilon, min_samples=min)  # Adjust the values of eps and min_samples as needed
+    cluster_labels = dbscan.fit_predict(reduced_docs)
+    cluster_labels = np.unique(cluster_labels)
 
     cluster_counts = {}
     for label in set(cluster_labels):
@@ -82,9 +85,9 @@ def cluster_data(document_list, epsilon, min):
 
     return [reduced_docs, cluster_labels]
 
-def draw_viz(reduced_docs, cluster_labels, title='Komentarze porgupowane wg podobieństwa rep. wektorowych:'):
+def draw_viz(reduced_docs, cluster_labels, title):
 
-    plt.style.use('white_background')
+    plt.style.use('default')
 
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
@@ -95,6 +98,20 @@ def draw_viz(reduced_docs, cluster_labels, title='Komentarze porgupowane wg podo
     plt.colorbar(scatter)
 
     plt.show()
+    plt.savefig(f'{title}.png')
+
+def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy w przestrzeni wektorowej'):
+    plt.style.use('default')
+
+    fig, ax = plt.subplots(figsize=(12, 12))
+    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1])
+    
+
+    plt.xlabel('Wymiar umowny 1')
+    plt.ylabel('Wymiar umowny 2')
+    plt.colorbar(scatter)
+    plt.show()
+    plt.savefig(f'{title}.png')
 
 #Top keywords for each cluster
 import itertools
@@ -135,7 +152,18 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
-colusters = cluster_data(doc_list[0], 3, 3)
-draw_viz(colusters[0], colusters[1])
+vectors = vectorize_comments(doc_list[0])
+draw_viz_raw(vectors)
+
+#loop through clusters with DBSCAN
+for i in range(1, 5):
+    epsilon = i / 50
+    min = 2
+    title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
+    output = DBSCAN_clustering(vectors, epsilon, min)
+
+    reduced_docs, cluster_labels = output[0], output[1]
+
+    draw_viz(reduced_docs, cluster_labels, title)
 
 
