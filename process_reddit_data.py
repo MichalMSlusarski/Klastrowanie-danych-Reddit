@@ -82,16 +82,16 @@ def cluster_data(document_list, epsilon, min):
 
     return [reduced_docs, cluster_labels]
 
-def draw_viz(reduced_docs, cluster_labels, title='Reddit comments cluster:'):
+def draw_viz(reduced_docs, cluster_labels, title='Komentarze porgupowane wg podobieństwa rep. wektorowych:'):
 
-    plt.style.use('dark_background')
+    plt.style.use('white_background')
 
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
 
     plt.title(title)
-    plt.xlabel('Dimension 1')
-    plt.ylabel('Dimension 2')
+    plt.xlabel('Wymiar umowny 1')
+    plt.ylabel('Wymiar umowny 2')
     plt.colorbar(scatter)
 
     plt.show()
@@ -135,7 +135,7 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
-cos = cluster_data(doc_list[0], 3, 3)
-draw_viz(cos[0], cos[1], )
+colusters = cluster_data(doc_list[0], 3, 3)
+draw_viz(colusters[0], colusters[1])
 
 
