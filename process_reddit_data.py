@@ -45,7 +45,6 @@ def clean_text(text: str) -> str:
 
 def clean_all():
     df['comment'] = df['comment'].apply(clean_text)
-    print(df.head)
     return df
 
 def df_to_list(df=df, content_col='comment'):
@@ -80,8 +79,8 @@ def DBSCAN_clustering(reduced_docs, epsilon, min):
     for label in set(cluster_labels):
         cluster_counts[label] = sum(cluster_labels == label)
 
-    for label, count in cluster_counts.items():
-        print(f"Cluster {label}: {count} documents")
+    # for label, count in cluster_counts.items():
+    #     print(f"Cluster {label}: {count} documents")
 
     return [reduced_docs, cluster_labels]
 
@@ -90,7 +89,7 @@ def draw_viz(reduced_docs, cluster_labels, title):
     plt.style.use('default')
 
     fig, ax = plt.subplots(figsize=(12, 12))
-    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
+    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='viridis')
 
     plt.title(title)
     plt.xlabel('Wymiar umowny 1')
@@ -151,17 +150,18 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
-draw_viz_raw(vectors)
+#draw_viz_raw(vectors)
 
-# #loop through clusters with DBSCAN
-# for i in range(1, 5):
-#     epsilon = i / 50
-#     min = 2
-#     title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
-#     output = DBSCAN_clustering(vectors, epsilon, min)
 
-#     reduced_docs, cluster_labels = output[0], output[1]
+for i in range(2, 5):
+    epsilon = i / 50
+    min = 2
+    title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
+    output = DBSCAN_clustering(vectors, epsilon, min)
 
-#     draw_viz(reduced_docs, cluster_labels, title)
+    reduced_docs, cluster_labels = output[0], output[1]
+    print(cluster_labels)
+
+    draw_viz(reduced_docs, cluster_labels, title)
 
 
