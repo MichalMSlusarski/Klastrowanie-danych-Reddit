@@ -106,10 +106,8 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy w przestrzeni we
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1])
     
-
     plt.xlabel('Wymiar umowny 1')
     plt.ylabel('Wymiar umowny 2')
-    plt.colorbar(scatter)
     plt.show()
     plt.savefig(f'{title}.png')
 
@@ -155,15 +153,15 @@ doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
 draw_viz_raw(vectors)
 
-#loop through clusters with DBSCAN
-for i in range(1, 5):
-    epsilon = i / 50
-    min = 2
-    title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
-    output = DBSCAN_clustering(vectors, epsilon, min)
+# #loop through clusters with DBSCAN
+# for i in range(1, 5):
+#     epsilon = i / 50
+#     min = 2
+#     title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
+#     output = DBSCAN_clustering(vectors, epsilon, min)
 
-    reduced_docs, cluster_labels = output[0], output[1]
+#     reduced_docs, cluster_labels = output[0], output[1]
 
-    draw_viz(reduced_docs, cluster_labels, title)
+#     draw_viz(reduced_docs, cluster_labels, title)
 
 
