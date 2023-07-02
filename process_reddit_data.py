@@ -11,11 +11,21 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
 with open('stopwords_en.txt', 'r', encoding='utf-8') as f: #stopwords z nltk, bez koniecznosci pobierania modułu
+    unique_words = ['backpack', 'bag', 'pack', 'sack', 'adult']
     STOP_WORDS = f.read().splitlines()
+    STOP_WORDS.extend(unique_words)
+
+with open('negative.txt', 'r', encoding='utf-8') as g:
+    negative_words = g.read().splitlines()
+    STOP_WORDS.extend(negative_words)
+
+with open('positive.txt', 'r', encoding='utf-8') as h:
+    positive_words = h.read().splitlines()
+    STOP_WORDS.extend(positive_words)
 
 nlp = spacy.load("en_core_web_sm")
 
-df = pd.read_csv('comments.csv', sep=',')
+df = pd.read_csv('comments_t3_140xj5s.csv', sep=',')
 
 # FUNKCJE
 
@@ -58,7 +68,6 @@ def df_to_list(df=df, content_col='comment'):
 
     return [comments, ids]
 
-'''K-means do wyszukania podobieństwa między wektorami uzyskanymi przez tfidf, używa kwadratu dystansu euklidesowego. PCA pozawla ograniczyć wielowymiarowość wektorów tekstowych'''
 def vectorize_comments(document_list):
 
     vectorizer = TfidfVectorizer()
@@ -71,16 +80,29 @@ def vectorize_comments(document_list):
 
 def DBSCAN_clustering(reduced_docs, epsilon, min):
 
-    dbscan = DBSCAN(eps=epsilon, min_samples=min)  # Adjust the values of eps and min_samples as needed
+    dbscan = DBSCAN(eps=epsilon, min_samples=min)
     cluster_labels = dbscan.fit_predict(reduced_docs)
-    cluster_labels = np.unique(cluster_labels)
 
     cluster_counts = {}
     for label in set(cluster_labels):
         cluster_counts[label] = sum(cluster_labels == label)
 
-    # for label, count in cluster_counts.items():
-    #     print(f"Cluster {label}: {count} documents")
+    for label, count in cluster_counts.items():
+        print(f"Cluster {label}: {count} documents")
+
+    return [reduced_docs, cluster_labels]
+
+def kMeans_clustering(reduced_docs, n_clusters):
+
+    kmeans = KMeans(n_clusters=n_clusters)
+    cluster_labels = kmeans.fit_predict(reduced_docs)
+
+    cluster_counts = {}
+    for label in set(cluster_labels):
+        cluster_counts[label] = sum(cluster_labels == label)
+
+    for label, count in cluster_counts.items():
+        print(f"Cluster {label}: {count} documents")
 
     return [reduced_docs, cluster_labels]
 
@@ -89,7 +111,7 @@ def draw_viz(reduced_docs, cluster_labels, title):
     plt.style.use('default')
 
     fig, ax = plt.subplots(figsize=(12, 12))
-    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='viridis')
+    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set2')
 
     plt.title(title)
     plt.xlabel('Wymiar umowny 1')
@@ -97,18 +119,18 @@ def draw_viz(reduced_docs, cluster_labels, title):
     plt.colorbar(scatter)
 
     plt.show()
-    plt.savefig(f'{title}.png')
 
-def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy w przestrzeni wektorowej'):
+def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźnie'):
+
     plt.style.use('default')
 
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1])
     
+    plt.title(title)
     plt.xlabel('Wymiar umowny 1')
     plt.ylabel('Wymiar umowny 2')
     plt.show()
-    plt.savefig(f'{title}.png')
 
 #Top keywords for each cluster
 import itertools
@@ -150,18 +172,19 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
-#draw_viz_raw(vectors)
+draw_viz_raw(vectors)
+# n = 4
+# output = kMeans_clustering(vectors, n)
+# reduced_docs, cluster_labels = output[0], output[1]
+# draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
 
 
-for i in range(2, 5):
-    epsilon = i / 50
-    min = 2
-    title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
-    output = DBSCAN_clustering(vectors, epsilon, min)
 
-    reduced_docs, cluster_labels = output[0], output[1]
-    print(cluster_labels)
-
-    draw_viz(reduced_docs, cluster_labels, title)
+epsilon = 0.04
+min = 10
+title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
+output = DBSCAN_clustering(vectors, epsilon, min)
+reduced_docs, cluster_labels = output[0], output[1]
+draw_viz(reduced_docs, cluster_labels, title)
 
 
