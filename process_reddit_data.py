@@ -10,8 +10,8 @@ from sklearn.cluster import DBSCAN
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
-with open('stopwords_en.txt', 'r', encoding='utf-8') as f: #stopwords z nltk, bez koniecznosci pobierania modułu
-    unique_words = ['backpack', 'bag', 'pack', 'sack', 'adult']
+with open('stopwords_en.txt', 'r', encoding='utf-8') as f:
+    unique_words = ['backpack', 'bag', 'pack', 'sack', 'adult', 'carry', 'have', 'small', 'big', 'extra', 'always', 'never', 'people', 'd', 're', 'thing']
     STOP_WORDS = f.read().splitlines()
     STOP_WORDS.extend(unique_words)
 
@@ -23,20 +23,19 @@ with open('positive.txt', 'r', encoding='utf-8') as h:
     positive_words = h.read().splitlines()
     STOP_WORDS.extend(positive_words)
 
+with open('verbs.txt', 'r', encoding='utf-8') as v:
+    verbs = v.read().splitlines()
+    STOP_WORDS.extend(verbs)
+
 nlp = spacy.load("en_core_web_sm")
 
 df = pd.read_csv('comments_t3_140xj5s.csv', sep=',')
 
-# FUNKCJE
-
-'''Podstawowe czyszczenie pojedynczego komentarza. Usuwane są znaki specjalne, stopwordy, a wielkie litery stają się małe.
-   Używając modułu SpaCy nlp, dokonujemy lemmatyzacji, czyli sprowadzenia wyrazu do formy podstawowej.
-'''
 def clean_text(text: str) -> str:
     
     text_cleaned = ''
 
-    text = re.sub(r'[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]', '', text)
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
 
     tokens = text.split()
     tokens = " ".join([i for i in text.lower().split()])
@@ -69,7 +68,6 @@ def df_to_list(df=df, content_col='comment'):
     return [comments, ids]
 
 def vectorize_comments(document_list):
-
     vectorizer = TfidfVectorizer()
     vectorized_docs = vectorizer.fit_transform(document_list)
 
@@ -114,8 +112,8 @@ def draw_viz(reduced_docs, cluster_labels, title):
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set2')
 
     plt.title(title)
-    plt.xlabel('Wymiar umowny 1')
-    plt.ylabel('Wymiar umowny 2')
+    plt.xlabel('')
+    plt.ylabel('')
     plt.colorbar(scatter)
 
     plt.show()
@@ -128,8 +126,8 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1])
     
     plt.title(title)
-    plt.xlabel('Wymiar umowny 1')
-    plt.ylabel('Wymiar umowny 2')
+    plt.xlabel('')
+    plt.ylabel('')
     plt.show()
 
 #Top keywords for each cluster
@@ -140,10 +138,8 @@ def aggregate_top_keywords(keywords, cluster_labels, top_n=30):
     cluster_keywords = {}
 
     for cluster_label in set(cluster_labels):
-        # Get the keywords associated with the current cluster label
         cluster_keywords_list = [kw for kw, lbl in zip(keywords, cluster_labels) if lbl == cluster_label]
 
-        # Flatten the list of keywords
         flattened_keywords = list(itertools.chain.from_iterable(cluster_keywords_list))
         keyword_counts = Counter(flattened_keywords)
         top_keywords = keyword_counts.most_common(top_n)
@@ -155,36 +151,33 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
     keyword_data = []
     top_keywords_per_cluster = aggregate_top_keywords(keywords, cluster_labels)
 
-    # Print the top keywords for each cluster
     for cluster_label, top_keywords in top_keywords_per_cluster.items():
         print(f"Cluster {cluster_label}:")
-        keyword_data.append([f'CLUSTER {cluster_label}', 0, 0])
+        keyword_data.append([f'CLUSTER {cluster_label}', 0])
         for keyword, count in top_keywords:
             print(f"- {keyword} ({count} occurrences)")
-            of_all = count / 22962 #hardcoded number of all keywords in all clusters
-            keyword_data.append([keyword, count, of_all])
+            keyword_data.append([keyword, count])
         print()
-    df = pd.DataFrame(keyword_data, columns=['keyword', 'count', 'of_all'])
-    df.to_csv(f'keywords_from_6_clusters.csv', index=False)
+    df = pd.DataFrame(keyword_data, columns=['keyword', 'count'])
+    df.to_csv(f'keywords_from_4_clusters', index=False)
     keyword_data.clear()
 
 
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
-draw_viz_raw(vectors)
-# n = 4
-# output = kMeans_clustering(vectors, n)
-# reduced_docs, cluster_labels = output[0], output[1]
-# draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
+n = 1
+epsilon = 0.07
+min = 4
 
-
-
-epsilon = 0.04
-min = 10
-title = f'Grupowanie DBSCAN dla: eps={epsilon} min={min}'
-output = DBSCAN_clustering(vectors, epsilon, min)
+output = kMeans_clustering(vectors, n)
+#output = DBSCAN_clustering(vectors, epsilon, min)
 reduced_docs, cluster_labels = output[0], output[1]
-draw_viz(reduced_docs, cluster_labels, title)
+
+keywords = doc_list[0]
+keywords = [sentence.split() for sentence in keywords]
+print_top_keywords_for_each_cluster(keywords, cluster_labels)
+
+#draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
 
 
