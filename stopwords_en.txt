@@ -20,6 +20,14 @@ old
 usually
 often
 sometimes
+always
+thing
+person
+something
+nothing
+anything
+already
+re
 two
 tho
 ve
