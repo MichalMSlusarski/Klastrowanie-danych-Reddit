@@ -11,25 +11,25 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
 with open('stopwords_en.txt', 'r', encoding='utf-8') as f:
-    unique_words = ['backpack', 'bag', 'pack', 'sack', 'adult', 'carry', 'have', 'small', 'big', 'extra', 'always', 'never', 'people', 'd', 're', 'thing']
+    unique_stopwords = ['life', 'people', 'age', 'young', 'old']
     STOP_WORDS = f.read().splitlines()
-    STOP_WORDS.extend(unique_words)
+    STOP_WORDS.extend(unique_stopwords)
 
+negative_words = []
 with open('negative.txt', 'r', encoding='utf-8') as g:
     negative_words = g.read().splitlines()
-    STOP_WORDS.extend(negative_words)
 
+positive_words = []
 with open('positive.txt', 'r', encoding='utf-8') as h:
     positive_words = h.read().splitlines()
-    STOP_WORDS.extend(positive_words)
 
+verbs = []
 with open('verbs.txt', 'r', encoding='utf-8') as v:
     verbs = v.read().splitlines()
-    STOP_WORDS.extend(verbs)
 
 nlp = spacy.load("en_core_web_sm")
 
-df = pd.read_csv('comments_t3_140xj5s.csv', sep=',')
+df = pd.read_csv('comments_t3_14oszge.csv', sep=',')
 
 def clean_text(text: str) -> str:
     
@@ -56,15 +56,16 @@ def clean_all():
     df['comment'] = df['comment'].apply(clean_text)
     return df
 
-def df_to_list(df=df, content_col='comment'):
+def df_to_list(df=df, content_col='comment', min_length=10):
     comments = []
     ids = []
 
     for index, row in df.iterrows():
         comment = row[content_col]
-        comments.append(comment)
-        ids.append(index)
-
+        if len(comment) >= min_length:
+            comments.append(comment)
+            ids.append(index)
+    
     return [comments, ids]
 
 def vectorize_comments(document_list):
@@ -109,7 +110,7 @@ def draw_viz(reduced_docs, cluster_labels, title):
     plt.style.use('default')
 
     fig, ax = plt.subplots(figsize=(12, 12))
-    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set2')
+    scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
 
     plt.title(title)
     plt.xlabel('')
@@ -134,7 +135,7 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
 import itertools
 from collections import Counter
 
-def aggregate_top_keywords(keywords, cluster_labels, top_n=30):
+def aggregate_top_keywords(keywords, cluster_labels, top_n=15):
     cluster_keywords = {}
 
     for cluster_label in set(cluster_labels):
@@ -166,18 +167,20 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
-n = 1
-epsilon = 0.07
+n = 4
+epsilon = 0.03
 min = 4
+#draw_viz_raw(vectors)
 
 output = kMeans_clustering(vectors, n)
 #output = DBSCAN_clustering(vectors, epsilon, min)
 reduced_docs, cluster_labels = output[0], output[1]
 
-keywords = doc_list[0]
-keywords = [sentence.split() for sentence in keywords]
-print_top_keywords_for_each_cluster(keywords, cluster_labels)
+comments = doc_list[0]
+bag_of_words = [comment.split() for comment in comments]
+print_top_keywords_for_each_cluster(bag_of_words, cluster_labels)
 
 #draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
+#draw_viz(reduced_docs, cluster_labels, f'Grupowanie DBSCAN dla eps={epsilon} i min={min}')
 
 
