@@ -112,7 +112,7 @@ def draw_viz(reduced_docs, cluster_labels, title):
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1], c=cluster_labels, cmap='Set1')
 
-    plt.title(title)
+    plt.title(title, fontsize = 20)
     plt.xlabel('')
     plt.ylabel('')
     plt.colorbar(scatter)
@@ -126,7 +126,7 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
     fig, ax = plt.subplots(figsize=(12, 12))
     scatter = ax.scatter(reduced_docs[:, 0], reduced_docs[:, 1])
     
-    plt.title(title)
+    plt.title(title, fontsize = 20)
     plt.xlabel('')
     plt.ylabel('')
     plt.show()
@@ -148,6 +148,9 @@ def aggregate_top_keywords(keywords, cluster_labels, top_n=15):
 
     return cluster_keywords
 
+# import itertools
+# from collections import Counter
+
 def print_top_keywords_for_each_cluster(keywords, cluster_labels):
     keyword_data = []
     top_keywords_per_cluster = aggregate_top_keywords(keywords, cluster_labels)
@@ -156,20 +159,30 @@ def print_top_keywords_for_each_cluster(keywords, cluster_labels):
         print(f"Cluster {cluster_label}:")
         keyword_data.append([f'CLUSTER {cluster_label}', 0])
         for keyword, count in top_keywords:
-            print(f"- {keyword} ({count} occurrences)")
+            print(f"- {keyword}") #({count} occurrences)")
             keyword_data.append([keyword, count])
         print()
     df = pd.DataFrame(keyword_data, columns=['keyword', 'count'])
-    df.to_csv(f'keywords_from_4_clusters', index=False)
+    df.to_csv(f'keywords_from_4_clusters.csv', index=False)
     keyword_data.clear()
 
+def remove_words(bag_of_words, words_to_exclude):
+    modified_bag_of_words = []
 
+    for keywords in bag_of_words:
+        modified_keywords = [word for word in keywords if word not in words_to_exclude]
+        modified_bag_of_words.append(modified_keywords)
+
+    return modified_bag_of_words
+
+
+common_words = ["mistake", "make", "think", "good", "well", "regret", "move", "time", "like", "learn", "let", "bad", "look", "know", "way", "try", "love", "lesson", "forgive", "part", "change", "live", "less", "grow"]
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
 vectors = vectorize_comments(doc_list[0])
 n = 4
-epsilon = 0.03
-min = 4
+epsilon = 0.04
+min = 6
 #draw_viz_raw(vectors)
 
 output = kMeans_clustering(vectors, n)
@@ -178,8 +191,8 @@ reduced_docs, cluster_labels = output[0], output[1]
 
 comments = doc_list[0]
 bag_of_words = [comment.split() for comment in comments]
+bag_of_words = remove_words(bag_of_words, common_words)
 print_top_keywords_for_each_cluster(bag_of_words, cluster_labels)
-
 #draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
 #draw_viz(reduced_docs, cluster_labels, f'Grupowanie DBSCAN dla eps={epsilon} i min={min}')
 
