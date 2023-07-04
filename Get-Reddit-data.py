@@ -7,7 +7,7 @@ reddit = praw.Reddit(client_id='C9m2y3NRDX0fjzW9vGnLKw',
                      user_agent='uni_project by /u/mars_million')
 
 # Numer identyfikacyjny posta
-post_id = '140xj5s'
+post_id = '14oszge'
 
 # Pobranie posta
 post = reddit.submission(id=post_id)
