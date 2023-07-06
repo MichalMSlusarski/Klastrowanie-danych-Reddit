@@ -135,7 +135,7 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
 import itertools
 from collections import Counter
 
-def aggregate_top_keywords(keywords, cluster_labels, top_n=15):
+def aggregate_top_keywords(keywords, cluster_labels, top_n=3):
     cluster_keywords = {}
 
     for cluster_label in set(cluster_labels):
@@ -175,10 +175,24 @@ def remove_words(bag_of_words, words_to_exclude):
 
     return modified_bag_of_words
 
+def df_to_list_2(df=df, content_col='comment', min_length=10):
+    comments = []
+    ids = []
+
+    for index, row in df.iterrows():
+        comment = row[content_col]
+        if len(comment) >= min_length:
+            comments.append(comment)
+            ids.append(index)
+    
+    return [comments, ids]
+
 
 common_words = ["mistake", "make", "think", "good", "well", "regret", "move", "time", "like", "learn", "let", "bad", "look", "know", "way", "try", "love", "lesson", "forgive", "part", "change", "live", "less", "grow"]
+doc_list_2 = df_to_list_2(df, 'comment')
 clean_df = clean_all()
 doc_list = df_to_list(clean_df, 'comment')
+
 vectors = vectorize_comments(doc_list[0])
 n = 4
 epsilon = 0.04
@@ -190,9 +204,28 @@ output = kMeans_clustering(vectors, n)
 reduced_docs, cluster_labels = output[0], output[1]
 
 comments = doc_list[0]
+raw_comments = doc_list_2[0]
 bag_of_words = [comment.split() for comment in comments]
 bag_of_words = remove_words(bag_of_words, common_words)
-print_top_keywords_for_each_cluster(bag_of_words, cluster_labels)
+
+def print_comments_for_clusters(comments, cluster_labels, num_comments=3):
+    cluster_comments = {}
+
+    for comment, label in zip(comments, cluster_labels):
+        if label not in cluster_comments:
+            cluster_comments[label] = [comment]
+        else:
+            cluster_comments[label].append(comment)
+
+    for label, comments in cluster_comments.items():
+        print(f"Cluster {label}:\n")
+        for comment in comments[:num_comments]:
+            print(comment)
+
+
+print_comments_for_clusters(raw_comments, cluster_labels, num_comments=3)
+
+#print_top_keywords_for_each_cluster(comments, cluster_labels)
 #draw_viz(reduced_docs, cluster_labels, f'Grupowanie metodą k-średnich dla {n} grup')
 #draw_viz(reduced_docs, cluster_labels, f'Grupowanie DBSCAN dla eps={epsilon} i min={min}')
 
