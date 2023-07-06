@@ -1,65 +1,17 @@
 keyword,count
 CLUSTER 0,0
-want,16
-past,14
-take,11
-choice,10
-could,10
-experience,10
-remember,10
-say,10
-feel,10
-thank,10
-realize,9
-even,9
-keep,9
-forward,8
-never,8
+ ,3008
+e,2474
+t,1400
 CLUSTER 1,0
-feel,31
-give,29
-really,28
-fuck,26
-shit,22
-could,22
-even,21
-say,20
-start,20
-right,19
-parent,18
-back,17
-happen,14
-long,13
-memory,13
+ ,523
+e,425
+t,286
 CLUSTER 2,0
-past,51
-future,18
-focus,10
-happen,5
-important,5
-seem,5
-take,5
-forward,5
-worry,4
-fuck,4
-realize,4
-opportunity,3
-weight,3
-understand,3
-end,3
+e,220
+ ,218
+r,121
 CLUSTER 3,0
-become,6
-hard,5
-important,4
-weight,3
-else,3
-many,3
-follow,3
-repeat,3
-forward,2
-reason,2
-find,2
-death,2
-otherwise,2
-true,2
-failure,2
+ ,1942
+e,1787
+a,940
