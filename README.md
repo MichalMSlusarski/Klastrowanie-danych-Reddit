@@ -1,7 +1,3 @@
-### Michał Ślusarski
-
-Raport w formacie markdown
-
 ### Założenia i cele projektu
 
 Celem projektu jest zbadanie możliwości ekstrakcji, strukturyzacji i analizy danych tekstowych z portalu społecznościowego Reddit. Badanie polegać będzie na eksploracji metod grupowania komentarzy zaciągniętych z portalu.
