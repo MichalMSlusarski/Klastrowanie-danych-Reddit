@@ -2,9 +2,9 @@ import praw
 import csv
 
 # Dostęp do API (ukryty)
-reddit = praw.Reddit(client_id='C9m2y3NRDX0fjzW9vGnLKw', 
-                     client_secret='TZcYQwlZ1NngXLB_NmSeHNJWyV1zkw', 
-                     user_agent='uni_project by /u/mars_million')
+reddit = praw.Reddit(client_id='', 
+                     client_secret='', 
+                     user_agent='')
 
 # Numer identyfikacyjny posta
 post_id = '14oszge'
