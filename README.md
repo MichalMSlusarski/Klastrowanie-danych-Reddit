@@ -336,29 +336,52 @@ Po zastosowaniu kilku filtracji, słowa kluczowe prezentują się następująco:
 | long | 13 | undrstand | 3 | true | 2 | forward | 8 |
 | memory | 13 | end | 3 | failure | 2 | never | 8 |
 
-Od razu rzuca się w oczy grupa 2., w której niemalże w niezmienionej formie 
+We wszystkich grupach pojawiają się słowa związane z przyszłością: start, future, opportunity, become, forward, want, keep. Można zakładać, że w wypowiedziach dominują dobre rady - mimo wieku, nie przejmuj się bagażem przeszłości. Myśl o przyszłości. Tym co różnicuje wypowiedzi, jest ton i sposób przedstawienia rady. Od dosadnych i wulgarnych, poprzez optymistyczne, po bardziej wyszukane i filozoficzne.
 
-Grupa ta może obrazować wypowiedzi typu: nie myśl o przyszłości, skup się na przyszłości.
+### Analiza jakościowa
 
-Najbardziej wypłowiała grupa 3. 
+W interpretacji znaczenia zagregowanych słów kluczowych może pomóc analiza jakościowa wybranych komentarzy. Oczywiście, przeprowadzenie analizy jakościowej zaledwie kilku wypowiedzi nie może stanowić podstaw wnioskowania o całości grupy. Niemniej, losowo wybrane komentarze mogą rozjaśnić to, w jaki sposób słowa kluczowe używane są w danej grupie.
 
-Bazując wyłącznie na słowach kluczowych, 1. grupę można zdefiniować jako
+Wybrane komentarze z Grupy 1.
 
-Grupa 2.
+	As my dog would say, “kick some grass over that shit and move on.” Death will  come soon enough. Zero point in hastening it [...]
+	[...] You can't continue to punish yourself for regrets and mistakes of the past. You have to let it go or it will suck all the joy out of your life and ruin opportunities in the future. As I age that shit I did is so miniscule. That broken heart at 16 was so long ago. The rent I couldn't pay at 20 [...].
+ 
+Jak wskazują słowa kluczowe oraz powyższe przykłady, komentarze z Grupy 1. są najbardziej wulgarne i dosadne. Autorzy wypowiedzi zachęcają, aby skupić się na przyszłości i przestać przejmować się przeszłością.
+
+Wybrane komentarze z grupy 2
+
+	If you learn from your mistakes you have nothing to regret.
+	They only grow if you don’t learn to let them go and treat them as lessons and not weight.
+	What weight of mistakes and regret? You learn from it and move the fuck on
+ 
+Przykłady komentarzy z tej grupy utrzymane są w podobnym tonie. Są jednak bardziej lakoniczne i dosadne. Wypowiedzi te, to krótkie i proste “dobre rady”.
+
+Wybrane komentarze z grupy 3
+
+	I was young and naive in 2005 when I contracted HIV from my first boyfriend.  My life would be very very different if that didn’t happen.  I had plans that I had been working on for years but I had to stop them because I needed a job with good insurance. It has been a major factor in limiting my romantic partners.
+	I’m 43 and I feel this question so so much. I’m still luckier than many but I still feel like I was robbed of choices.
+
+Grupa 3. jest jedną z najmniej licznych. Jest też jedyną grupą, w której znaleźć można pesymistyczne wypowiedzi. Zebrane komentarze wtórują tezom z zadanego pytania, nie mogąc pogodzić się z bagażem przeszłości.
+
+Wybrane komentarze z grupy 4
+
+	The opposite is sort of happening to me. The older I get, the less important all of the mistakes of the past seem to be. [...] You have to let it go or it will suck all the joy out of your life and ruin opportunities in the future.
+	Spending all of your energy on regretting your decisions isn't going to make your life any better. You need to come to terms with your choices and put them in the past and move forward with your life.
+	So you need to accept the fact that this is what your life is and the only way it's going to improve is by making better choices.
+
+Komentarze z tej grupy cechuje optymistyczny ton. Są rozbudowane i pouczające. Autorzy dzielą się własnym doświadczeniem. Ich zdaniem z perspektywy lat, dawne błędy tracą znaczenie. Autorzy radzą, aby sprawy przeszłości zostawić w przeszłości - żyć tu i teraz - ucząc się na błędach.
 
 ### Wnioski
 
-We wszystkich grupach pojawiają się słowa zawiązane z przyszłością: *start, future, opportunity, become, forward, want, keep.*  Można zakładać, że **w wypowiedziach dominują dobre rady** - mimo wieku, nie przejmuj się bagażem przeszłości. Myśl o przyszłości. Tym co różnicuje wypowiedzi, jest ton i sposób przedstawienia rady. Od dosadnych i wulgarnych, poprzez optymistyczne, po bardziej wyszukane i filozoficzne. 
+W toku badania zrealizowano jego podstawowe założenia. Zebrano i przetworzono komentarze z portalu Reddit. Dokonano ich grupowania i analizy. Hipotezą badawczą było wskazanie na możliwość wyraźnej identyfikacji poniższych grup w korpusie:
+- Komentarze negujące tezę zadaną w pytaniu - z wiekiem jest coraz łatwiej radzić sobie z problemami
+- Komentarze cechujące się obojętnością, nawiązujące do rutyny życia - jakoś to będzie
+- Komentarze potwierdzające tezę z pytania - jest źle, nie daję sobie rady etc.
+- 
+Przeprowadzona analiza daje podstawy do stwierdzenia, że hipoteza o możliwości wyraźnej identyfikacji tychże grup powinna zostać odrzucona. Choć zidentyfikowano pojedyncze wypowiedzi cechujące się pesymizmem, stanowią one niewielki ułamek korpusu. W większości grup przeważają wypowiedzi optymistycznie nastawione do procesu starzenia się, negujące tezę, jakoby z wiekiem radzenie sobie z problemami stanowiło wyzwanie. Dominują rady, propozycje skupienia się na przyszłości i pozostawienia przeszłości w tyle. Głównym czynnikiem różnicującym grupy, okazał się charakter wypowiedzi (ton, dosadność, wulgarność, zwięzłość).
+Dokładne określenie charakteru stworzonych grup mogłyby rozstrzygnąć dodatkowe, bardziej szczegółowe analizy. Wśród nich wymienić można: agregację zdań kluczowych, generację streszczeń dla grup, modelowanie tematyczne, czy filtrowanie wielokrotne. Zasobochłonność takich analiz wykracza jednak poza moje obecne możliwości.
 
-Korzystając wyłącznie z analizy słów kluczowych, powyższe wnioski stanowią wyłącznie przypuszczenia. Niemniej, z dużą pewnością można powiedzieć, że podział komentarzy na grupy nie ma takiego charakteru, jaki był wskazany w hipotezach. Dla przypomnienia, postawione w badaniu **hipotezy** dotyczyły identyfikacji konkretnych grup komentarzy:
-
-- Komentarze **negujące tezę** zadaną w pytaniu - *z wiekiem jest coraz łatwiej radzić sobie z problemami*
-- Komentarze cechujące się **obojętnością**, nawiązujące do rutyny życia - *jakoś to będzie*
-- Komentarze **potwierdzające** tezę z pytania - *jest źle, nie daję sobie rady* etc.
-
-Być może bardziej zaawansowane metody grupowania byłyby wstanie wychwycić istnienie takich grup. Bardziej prawdopodobne jest jednak, że ich reprezentacja w korpusie jest minimalna. Zebrane dane każą przypuszczać, że dominuje 1. grupa komentarzy z hipotez, ewentualnie grupa 2., na co mogłyby wskazywać wulgaryzmy.
-
-Dokładne rozstrzygnięcie charakteru stworzonych grup mogłyby rozstrzygnąć dodatkowe, bardziej szczegółowe analizy. Wśród nich wymienić można: analizę jakościową wybranych przypadków, agregację zdań kluczowych, generację streszczeń dla grup, modelowanie tematyczne, czy filtrowanie wielokrotne. Zasobochłonność takich analiz wykracza jednak poza moje obecne możliwości.
 
 ### Źródła
 
