@@ -2,19 +2,9 @@
 
 Celem projektu jest zbadanie możliwości ekstrakcji, strukturyzacji i analizy danych tekstowych z portalu społecznościowego Reddit. Badanie polegać będzie na eksploracji metod grupowania komentarzy zaciągniętych z portalu.
 
-Reddit to platforma społecznościowa, która umożliwia użytkownikom tworzenie, udostępnianie i dyskusję na temat różnych treści. Struktura Reddita składa się z tzw. "subredditów", czyli podstron poświęconych określonym tematom. Każdy subreddit jest zarządzany przez moderatorów, którzy ustalają zasady i nadzorują treści publikowane przez użytkowników.
-
-Główną jednostką treści na Reddicie jest "post". Posty mogą być oceniane przez społeczność za pomocą systemu głosowania w górę lub w dół. Popularne posty mają większą widoczność, a niepopularne są ukrywane.
-
-Badanym subredditem jest r/AskReddit, drugi największy w serwisie (blisko 42 mln. użytkowników[1]). Każdy post to pytanie zadane przez użytkownika. Pytania obejmują szeroki zakres tematyczny - od osobistych doświadczeń i opinii po ciekawostki, porady, historie etc.
-
 Jednym z głównych wyzwań, pojawiających się w analizach danych z mediów społecznościowych, jest problem inkorporacji danych wizualnych, takich jak zdjęcia, grafiki i nagrania. W przeciwieństwie do danych uzyskiwanych z popularniejszych mediów społecznościowych, np. Twittera czy Facebooka, r/AskReddit zapewnia gwarancję czysto tekstowego charakteru wypowiedzi.
 
-Przykład wątków poruszanych w subreddicie:
-
-![Screenshot 2023-06-05 174036.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8b231d37-53d3-45f4-8f0d-3ca92b6bef35/Screenshot_2023-06-05_174036.png)
-
-Do niniejszej analizy został wybrany pierwszy, zaznaczony na szaro wątek - **Older people of Reddit. How do you carry on with life when the weight of mistakes and regrets only seems to grow larger as you age?** *(tłum. Starsi ludzie z reddita. Jak żyć dalej, gdy ciężar błędów i żalu wydaje się tylko rosnąć wraz z wiekiem?)*
+Do niniejszej analizy został wybrany wątek - **Older people of Reddit. How do you carry on with life when the weight of mistakes and regrets only seems to grow larger as you age?** *(tłum. Starsi ludzie z reddita. Jak żyć dalej, gdy ciężar błędów i żalu wydaje się tylko rosnąć wraz z wiekiem?)*
 
 Źródło posta: 
 
