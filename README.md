@@ -74,7 +74,7 @@ Wynikiem wywołania funkcji jest tabela w formacie CSV, zawierająca komentarze 
 
 ### Przygotowanie komentarzy
 
-Przed przystąpieniem do analizy, komentarze zostaną staranie przetworzone, aby maksymalnie zredukować ich objętość. 
+Przed przystąpieniem do analizy, komentarze zostaną starannie przetworzone, aby maksymalnie zredukować ich objętość. 
 
 Fragment kodu wczytuje listę słów kluczowych, wczytuje gotowy model `spaCy` dla języka angielskiego i odczytuje plik CSV z komentarzami. 
 
