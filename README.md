@@ -163,7 +163,7 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
 
 Wywołanie funkcji skutkuje poniższą wizualizacją. Osie X i Y **nie zostały oznaczone celowo**, ponieważ reprezentowane przez nie wymiary są umowne, stanowiąc kartezjański układ współrzędnych.
 
-![Figure_1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/38cac06f-29d1-48b2-a034-5d5fafceb1ca/Figure_1.png)
+![Figure_1](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/VecPca-1.png)
 
 Powyższa wizualizacja pokazuje, że istnieje wyraźne skupisko, bardzo podobnych do siebie komentarzy oraz niewielkie wysepki komentarzy zupełnie niezwiązanych z innymi. Zadaniem algorytmów grupujących będzie zdefiniowanie występujących grup.
 
@@ -190,13 +190,11 @@ Grupowanie algorytmiczne jest **procesem** iteracyjnym. Niemożliwym jest stwier
 
 Wybrane przykłady z procesu grupowania. Parametry epsilon i minimum odpowiednio: [0.05, 3]  oraz [0.04, 12]. Poniższe przykłady dobrze obrazują skrajności powstałe przy niewielkiej zmianie parametrów. Wykres po lewej cechuje duża liczba grup różnej wielkości. Ten po prawej pozwala na zidentyfikowanie głównego skupiska, nie będąc jednak w stanie pogrupować reszty komentarzy.
 
-![Figure_2.3.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4c1ae191-14f8-43c2-89fc-32f8fbe31e33/Figure_2.3.png)
-
-![Figure_2.2x.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a0aa3a57-1b22-46ba-971b-38489427f324/Figure_2.2x.png)
+![Figure_2.3](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/Fig_1.png)
 
 Eksperymentując z wartościami pośrednimi, można uzyskać ten wykres:
 
-![Figure_7.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3fcf3d47-d62e-4c13-82aa-0d6416f017c0/Figure_7.png)
+![Figure_7](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/DBSCAN-e004-m4.png)
 
 Algorytm DBSCAN dobrze radzi sobie z identyfikacją **głównego skupiska**. Pozwala zobrazować stopień podobieństwa - które komentarze są *samotnymi wyspami*, a które organizują się w małe *kontynenty*. 
 
@@ -220,15 +218,13 @@ def kMeans_clustering(reduced_docs, n_clusters):
 
 Jak pokazują wizualizacje, uzyskiwane tą metodą grupy są mniej organiczne. Grupowanie przypomina bardziej tworzenie granic między dokumentami. 
 
-![2.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f9e6fb46-5564-4130-a55b-ad24076ffc61/2.png)
-
-![1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2601766f-c82d-42bf-a15e-554180a510bf/1.png)
+![Fig_2](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/Fig_2.png)
 
 Można zauważyć, że na początku algorytm wydzielił dwie proste grupy - lewą i prawą. Zdając mu dodatkowe skupisko do wykonania, grupy przybierają bardziej złożone kształty. Podział zaczyna przebiegać na środku grafu. Co istotne, tworzone grupy mają charakter nie **tyle skupisk, co regionów.** W pewien sposób realizuje on założenie podziału przestrzeni, z którym DBSCAN miał problem. ****Żaden komentarz nie zostaje pominięty, nawet te bardzo odległe przypisane są do którejś z grup. Nie jest to pożądane zjawisko, niemniej wpływ tych pojedynczych dokumentów na zdefiniowanie cech grupy, z natury rzeczy będzie niewielki.
 
 Ostatecznie, zdecydowałem się na grupowanie metodą k-średnich z czterema wyróżnionymi grupami. W przyzwoity sposób wydzielone zostały tutaj silne skupiska po lewej **(fiolet)** i w centrum wizualizacji **(czerwień)**.
 
-![Figure_8.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5bfdd7fc-4aac-43cf-a45d-8c73ad803059/Figure_8.png)
+![Viz_2](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/KMeans-Clustering-n4.png)
 
 Ekstrakcja słów kluczowych przeprowadzona będzie na czterech grupach utworzonych metodą k-średnich. Zapewniają one odpowiednią ciągłość podobieństwa, zrównoważoną wielkość grup oraz separację przestrzenną.
 
