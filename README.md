@@ -226,9 +226,7 @@ Jak pokazują wizualizacje, uzyskiwane tą metodą grupy są mniej organiczne. G
 
 Można zauważyć, że na początku algorytm wydzielił dwie proste grupy - lewą i prawą. Zdając mu dodatkowe skupisko do wykonania, grupy przybierają bardziej złożone kształty. Podział zaczyna przebiegać na środku grafu. Co istotne, tworzone grupy mają charakter nie **tyle skupisk, co regionów.** W pewien sposób realizuje on założenie podziału przestrzeni, z którym DBSCAN miał problem. ****Żaden komentarz nie zostaje pominięty, nawet te bardzo odległe przypisane są do którejś z grup. Nie jest to pożądane zjawisko, niemniej wpływ tych pojedynczych dokumentów na zdefiniowanie cech grupy, z natury rzeczy będzie niewielki.
 
-Najprawdopodobniej idealnym rozwiązaniem byłoby **połączenie wyników jednej i drugiej metody grupowania**. Tym sposobem możnaby odseparować luźno związane komentarze, a jednocześnie zachować przejrzyste grupy metody k-średnich. Wykracza ono jednak poza moje obecne umiejętności techniczne.
-
-Ostatecznie, zdecydowałem się na grupowanie metodą k-średnich z czterema wyróżnionymi grupami.  W przyzwoity sposób wydzielone zostały tutaj silne skupiska po lewej **(fiolet)** i w centrum wizualizacji **(czerwień)**.
+Ostatecznie, zdecydowałem się na grupowanie metodą k-średnich z czterema wyróżnionymi grupami. W przyzwoity sposób wydzielone zostały tutaj silne skupiska po lewej **(fiolet)** i w centrum wizualizacji **(czerwień)**.
 
 ![Figure_8.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5bfdd7fc-4aac-43cf-a45d-8c73ad803059/Figure_8.png)
 
@@ -371,7 +369,6 @@ W toku badania zrealizowano jego podstawowe założenia. Zebrano i przetworzono 
 - 
 Przeprowadzona analiza daje podstawy do stwierdzenia, że hipoteza o możliwości wyraźnej identyfikacji tychże grup powinna zostać odrzucona. Choć zidentyfikowano pojedyncze wypowiedzi cechujące się pesymizmem, stanowią one niewielki ułamek korpusu. W większości grup przeważają wypowiedzi optymistycznie nastawione do procesu starzenia się, negujące tezę, jakoby z wiekiem radzenie sobie z problemami stanowiło wyzwanie. Dominują rady, propozycje skupienia się na przyszłości i pozostawienia przeszłości w tyle. Głównym czynnikiem różnicującym grupy, okazał się charakter wypowiedzi (ton, dosadność, wulgarność, zwięzłość).
 Dokładne określenie charakteru stworzonych grup mogłyby rozstrzygnąć dodatkowe, bardziej szczegółowe analizy. Wśród nich wymienić można: agregację zdań kluczowych, generację streszczeń dla grup, modelowanie tematyczne, czy filtrowanie wielokrotne. Zasobochłonność takich analiz wykracza jednak poza moje obecne możliwości.
-
 
 ### Źródła
 
