@@ -362,6 +362,6 @@ W toku badania zrealizowano jego podstawowe założenia. Zebrano i przetworzono 
 - Komentarze negujące tezę zadaną w pytaniu - z wiekiem jest coraz łatwiej radzić sobie z problemami
 - Komentarze cechujące się obojętnością, nawiązujące do rutyny życia - jakoś to będzie
 - Komentarze potwierdzające tezę z pytania - jest źle, nie daję sobie rady etc.
-- 
+
 Przeprowadzona analiza daje podstawy do stwierdzenia, że hipoteza o możliwości wyraźnej identyfikacji tychże grup powinna zostać odrzucona. Choć zidentyfikowano pojedyncze wypowiedzi cechujące się pesymizmem, stanowią one niewielki ułamek korpusu. W większości grup przeważają wypowiedzi optymistycznie nastawione do procesu starzenia się, negujące tezę, jakoby z wiekiem radzenie sobie z problemami stanowiło wyzwanie. Dominują rady, propozycje skupienia się na przyszłości i pozostawienia przeszłości w tyle. Głównym czynnikiem różnicującym grupy, okazał się charakter wypowiedzi (ton, dosadność, wulgarność, zwięzłość).
 Dokładne określenie charakteru stworzonych grup mogłyby rozstrzygnąć dodatkowe, bardziej szczegółowe analizy. Wśród nich wymienić można: agregację zdań kluczowych, generację streszczeń dla grup, modelowanie tematyczne, czy filtrowanie wielokrotne.
