@@ -163,7 +163,7 @@ def draw_viz_raw(reduced_docs, title='Rozmieszczenie komentarzy na płaszczyźni
 
 Wywołanie funkcji skutkuje poniższą wizualizacją. Osie X i Y **nie zostały oznaczone celowo**, ponieważ reprezentowane przez nie wymiary są umowne, stanowiąc kartezjański układ współrzędnych.
 
-![Figure_1](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/VecPca-1.png)
+![Figure_1](https://github.com/MichalMSlusarski/Klastrowanie-danych-Reddit/blob/main/Figures/VecPca-1.png){ width=50% }
 
 Powyższa wizualizacja pokazuje, że istnieje wyraźne skupisko, bardzo podobnych do siebie komentarzy oraz niewielkie wysepki komentarzy zupełnie niezwiązanych z innymi. Zadaniem algorytmów grupujących będzie zdefiniowanie występujących grup.
 
